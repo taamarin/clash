@@ -475,18 +475,18 @@ func Parse(buf []byte) (*Config, error) {
 
 func DefaultRawConfig() *RawConfig {
 	return &RawConfig{
-		AllowLan:          false,
+		AllowLan:          true,
 		BindAddress:       "*",
 		LanAllowedIPs:     []netip.Prefix{netip.MustParsePrefix("0.0.0.0/0"), netip.MustParsePrefix("::/0")},
-		IPv6:              true,
+		IPv6:              false,
 		Mode:              T.Rule,
 		GeoAutoUpdate:     false,
 		GeoUpdateInterval: 24,
 		GeodataMode:       geodata.GeodataMode(),
 		GeodataLoader:     "memconservative",
-		UnifiedDelay:      false,
+		UnifiedDelay:      true,
 		Authentication:    []string{},
-		LogLevel:          log.INFO,
+		LogLevel:          log.SILENT,
 		Hosts:             map[string]any{},
 		Rule:              []string{},
 		Proxy:             []map[string]any{},
@@ -496,35 +496,27 @@ func DefaultRawConfig() *RawConfig {
 		GlobalUA:          "clash.meta/" + C.Version,
 		ETagSupport:       true,
 		DNS: RawDNS{
-			Enable:         false,
+			Enable:         true,
 			IPv6:           false,
 			UseHosts:       true,
 			UseSystemHosts: true,
-			IPv6Timeout:    100,
+			IPv6Timeout:    60,
 			EnhancedMode:   C.DNSMapping,
 			FakeIPRange:    "198.18.0.1/16",
 			FakeIPTTL:      1,
 			FallbackFilter: RawFallbackFilter{
-				GeoIP:     true,
-				GeoIPCode: "CN",
+				GeoIP:     false,
+				GeoIPCode: "",
 				IPCIDR:    []string{},
 				GeoSite:   []string{},
 			},
-			DefaultNameserver: []string{
-				"114.114.114.114",
-				"223.5.5.5",
-				"8.8.8.8",
-				"1.0.0.1",
+			// DefaultNameserver: []string{},
+			// NameServer: []string{},
+			ProxyServerNameserver: []string{
+				"112.215.198.248",
+				"112.215.198.254",
 			},
-			NameServer: []string{
-				"https://doh.pub/dns-query",
-				"tls://223.5.5.5:853",
-			},
-			FakeIPFilter: []string{
-				"dns.msftnsci.com",
-				"www.msftnsci.com",
-				"www.msftconnecttest.com",
-			},
+			// FakeIPFilter: []string{},
 			FakeIPFilterMode: C.FilterBlackList,
 		},
 		NTP: RawNTP{
@@ -538,7 +530,7 @@ func DefaultRawConfig() *RawConfig {
 			Enable:              false,
 			Device:              "",
 			Stack:               C.TunGvisor,
-			DNSHijack:           []string{"0.0.0.0:53"}, // default hijack all dns query
+			DNSHijack:           []string{"any:53"}, // default hijack all dns query
 			AutoRoute:           true,
 			AutoDetectInterface: true,
 			Inet6Address:        []netip.Prefix{netip.MustParsePrefix("fdfe:dcba:9876::1/126")},
