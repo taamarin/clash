@@ -1,6 +1,6 @@
 module github.com/metacubex/mihomo
 
-go 1.20
+go 1.23.0
 
 require (
 	github.com/bahlo/generic-list-go v0.2.0
@@ -134,7 +134,7 @@ require (
 	gitlab.com/yawning/bsaes.git v0.0.0-20190805113838-0a714cd429ec // indirect
 	go4.org/mem v0.0.0-20240501181205-ae6ca9944745 // indirect
 	golang.org/x/mod v0.20.0 // indirect
-	golang.org/x/oauth2 v0.24.0 // indirect
+	golang.org/x/oauth2 v0.27.0 // indirect
 	golang.org/x/term v0.29.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	golang.org/x/time v0.10.0 // indirect
